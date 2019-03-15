@@ -1,1 +1,7 @@
           OpenShift Container Platform - Advanced Deployment - Homework(8 hrs) for Sitaramaprasad Erothu
+Version of RHOCP supported by the inventory file: v3.11.51
+Instructor : VINO ALEX
+Class location : Prolifics(Hyderabad)
+Class date: 07 Jan 2019 - 11 jan 2019
+
+Note: This inventory file has a hard coded GUID value(14d2). If the lab is expired by the time reviewing this homework please change the GUID with the one which you use to test this inventory file.
