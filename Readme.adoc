@@ -1,4 +1,5 @@
-**************OpenShift Container Platform - Advanced Deployment - Homework(8 hrs) for Sitaramaprasad Erothu***************
+OpenShift Container Platform - Advanced Deployment - Homework(8 hrs) for Sitaramaprasad Erothu
+==============================================================================================
 
 Version of RHOCP supported by the inventory file: v3.11.51
 Instructor : VINO ALEX
