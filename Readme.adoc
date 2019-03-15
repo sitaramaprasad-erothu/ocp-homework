@@ -7,3 +7,12 @@ Class location : Prolifics(Hyderabad)
 Class date: 07 Jan 2019 - 11 jan 2019
 
 Note: This inventory file has a hard coded GUID value(14d2). If the lab is expired by the time reviewing this homework please change the GUID with the one which you use to test this inventory file.
+
+
+Instructions:
+
+1) Order OpenShift HA Homework 8 Lab and login to the system
+2) clone the repo 
+git clone https://github.com/sitaramaprasad-erothu/ocp-homework.git
+3) Copy the /ocp-homework/hosts file to /etc/ansible/hosts or you can refer this file location name when running playbook
+4) Follow the attched work document for the remaining steps.
