@@ -26,12 +26,12 @@ openshift_disable_check="disk_availability,memory_availability,docker_image_avai
 #openshift_pkg_version is set, its value is used for all hosts in RPM-based environments, even those that have another version installed.
 openshift_image_tag=v3.11.51
 # Use this variable to specify an RPM version to install or configure.
-openshift_pkg_version=-3.11.51
+openshift_pkg_version=3.11.51
 openshift_release=3.11.51
 
 
 # Node Groups
-openshift_node_groups=[{'name': 'node-config-master', 'labels': ['node-role.kubernetes.io/master=true','runtime=cri-o']}, {'name': 'node-config-infra', 'labels': ['node-role.kubernetes.io/infra=true','runtime=cri-o']}, {'name': 'node-config-compute', 'labels': ['node-role.kubernetes.io/compute=true','runtime=cri-o'], 'edits': [{ 'key': 'kubeletArguments.pods-per-core','value': ['20']}]}]
+openshift_node_groups=[{'name': 'node-config-master', 'labels': ['node-role.kubernetes.io/master=true','runtime=docker']}, {'name': 'node-config-infra', 'labels': ['node-role.kubernetes.io/infra=true','runtime=cri-o']}, {'name': 'node-config-compute', 'labels': ['node-role.kubernetes.io/compute=true','runtime=docker'], 'edits': [{ 'key': 'kubeletArguments.pods-per-core','value': ['20']}]}]
 # Configure node kubelet arguments. pods-per-core is valid in OpenShift Origin 1.3 or OpenShift Container Platform 3.3 and later. -> These  need to go into the above
 # openshift_node_kubelet_args={'pods-per-core': ['10'], 'max-pods': ['250'], 'image-gc-high-threshold': ['85'], 'image-gc-low-threshold': ['75']}
 
@@ -46,12 +46,11 @@ openshift_enable_olm=true
 ### OpenShift Registries Locations
 ###########################################################################
 
-oreg_url=registry.redhat.io/openshift3/ose-${component}:${version}
-oreg_auth_user=10955089|hyd1
-oreg_auth_password=eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiI1YjBhNmYwZjUxZDE0Yjg3YTMwNmU1YjQ4MjFiNTE3NSJ9.MqKR21lOx8NpXEETrqtI5bitVU2FmF7sCq7Dshk84eJkjnbYv5Knky13LdS1F5pf2Mi2GD4sNr6bm0kIhG5cBf6TU_YQGiCApVkH_IJCuK-aTDJQXc46oBkRu3up0tI_0blqwm_wP419ls_JFiQ7Q84s9nXWslZq5oDi_spjFqhOfevr6N_Kp4ERHGZ0HB_37xqL2XRPBp8-GoLAh3JsTHNqbEErwV2aegKVuux9oE5wSzVUsitiWrs0Oj1i2cGacnkqfjR6KO2V5I4CmatvF6gSM-T2qUYuYpIfqu3u5MyLedC-ttBJy-Fla-7TE2zfyFXAKBZb7GZNj4bTDsXKVjZXDRDmWpvjuwJY7wXp00S469o8MvYd-t2QHbGu9F4toRpKhtrgjnkOvGfRZCYC0OP4BLlHIA0I2LH6v3AGw-qbxnq59HBXMhXcJ-UYPh5FV4So8BvxoeOTu6mzBMD9sNxh62bk9s_93Wte-mxCI72lVJtV8oS_smmvoZX8835zUnIvu-IlkTiTH-SuA7g_mAE56hCzXlGnsjjebrwVGS3frJyF6roM6kMZn32a3UC2qC86RGJtjAKPE43dN37rr6HLyEymxTAtW7pOTXatxUrUwHYqkV1evwJOWGAbLwvW2ow-khsdOMJj4qvvXghVaTdufu4qIffKPnlrLDtf_8M
+#oreg_url=registry.access.redhat.com/openshift3/ose-${component}:${version}
+oreg_url=registry.redhat.io/openshift3/ose-{component}:${version}
 
 # For Operator Framework Images
-openshift_additional_registry_credentials=[{'host':'registry.connect.redhat.com','user':'10955089|hyd1','password':'eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiI1YjBhNmYwZjUxZDE0Yjg3YTMwNmU1YjQ4MjFiNTE3NSJ9.MqKR21lOx8NpXEETrqtI5bitVU2FmF7sCq7Dshk84eJkjnbYv5Knky13LdS1F5pf2Mi2GD4sNr6bm0kIhG5cBf6TU_YQGiCApVkH_IJCuK-aTDJQXc46oBkRu3up0tI_0blqwm_wP419ls_JFiQ7Q84s9nXWslZq5oDi_spjFqhOfevr6N_Kp4ERHGZ0HB_37xqL2XRPBp8-GoLAh3JsTHNqbEErwV2aegKVuux9oE5wSzVUsitiWrs0Oj1i2cGacnkqfjR6KO2V5I4CmatvF6gSM-T2qUYuYpIfqu3u5MyLedC-ttBJy-Fla-7TE2zfyFXAKBZb7GZNj4bTDsXKVjZXDRDmWpvjuwJY7wXp00S469o8MvYd-t2QHbGu9F4toRpKhtrgjnkOvGfRZCYC0OP4BLlHIA0I2LH6v3AGw-qbxnq59HBXMhXcJ-UYPh5FV4So8BvxoeOTu6mzBMD9sNxh62bk9s_93Wte-mxCI72lVJtV8oS_smmvoZX8835zUnIvu-IlkTiTH-SuA7g_mAE56hCzXlGnsjjebrwVGS3frJyF6roM6kMZn32a3UC2qC86RGJtjAKPE43dN37rr6HLyEymxTAtW7pOTXatxUrUwHYqkV1evwJOWGAbLwvW2ow-khsdOMJj4qvvXghVaTdufu4qIffKPnlrLDtf_8M','test_image':'mongodb/enterprise-operator:0.3.2'}]
+openshift_additional_registry_credentials=[{'host':'registry.connect.redhat.com','user':'CHANGEME','password':'CHANGEME','test_image':'mongodb/enterprise-operator:0.3.2'}]
 
 openshift_examples_modify_imagestreams=true
 
@@ -68,10 +67,19 @@ openshift_master_console_port=443
 
 #Default:  openshift_master_cluster_method=native
 openshift_master_cluster_hostname=loadbalancer.d6c1.internal
-openshift_master_cluster_public_hostname=loadbalancer.d6c1.example.opentlc.com
+openshift_master_cluster_public_hostname=master.d6c1.example.opentlc.com
 openshift_master_default_subdomain=apps.d6c1.example.opentlc.com
+#openshift_master_ca_certificate={'certfile': '/root/intermediate_ca.crt', 'keyfile': '/root/intermediate_ca.key'}
 openshift_master_overwrite_named_certificates=True
 
+# Audit log
+# openshift_master_audit_config={"enabled": true, "auditFilePath": "/var/log/openpaas-oscp-audit/openpaas-oscp-audit.log", "maximumFileRetentionDays": 14, "maximumFileSizeMegabytes": 500, "maximumRetainedFiles": 5}
+
+# ocp-ha-lab
+# AWS Autoscaler
+#openshift_master_bootstrap_auto_approve=false
+# This variable is a cluster identifier unique to the AWS Availability Zone. Using this avoids potential issues in Amazon Web Services (AWS) with multiple zones or multiple clusters.
+#openshift_clusterid
 
 ###########################################################################
 ### OpenShift Network Vars
@@ -80,17 +88,18 @@ openshift_master_overwrite_named_certificates=True
 osm_cluster_network_cidr=10.1.0.0/16
 openshift_portal_net=172.30.0.0/16
 
-os_sdn_network_plugin_name='redhat/openshift-ovs-networkpolicy'
+os_sdn_network_plugin_name='redhat/openshift-ovs-multitenant'
 
 ###########################################################################
 ### OpenShift Authentication Vars
 ###########################################################################
-# Just HTPASSWD
+
+# HTPASSWD
 openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider'}]
 
-# LDAP and HTPASSWD dependencies
-# Here we are using http authentication method to login to the openshift master. htpasswd.openshift is a default file which contains a list of users that has access to openshift master
+# HTPASSWD dependencies
 openshift_master_htpasswd_file=/root/htpasswd.openshift
+
 
 ###########################################################################
 ### OpenShift Metrics and Logging Vars
@@ -102,7 +111,7 @@ openshift_master_htpasswd_file=/root/htpasswd.openshift
 
 openshift_hosted_prometheus_deploy=true
 openshift_prometheus_namespace=openshift-metrics
-openshift_prometheus_node_selector={"node-role.kubernetes.io/infra":"true"}
+openshift_prometheus_node_selector={"node-role.kubernetes.io/compute":"true"}
 
 openshift_cluster_monitoring_operator_install=true
 
@@ -116,6 +125,7 @@ openshift_metrics_install_metrics=True
 openshift_metrics_storage_kind=nfs
 openshift_metrics_storage_access_modes=['ReadWriteOnce']
 openshift_metrics_storage_nfs_directory=/srv/nfs
+openshift_metrics_storage_nfs_server=support2.d6c1.internal
 openshift_metrics_storage_nfs_options='*(rw,root_squash)'
 openshift_metrics_storage_volume_name=metrics
 openshift_metrics_storage_volume_size=10Gi
@@ -147,7 +157,7 @@ openshift_prometheus_alertbuffer_cpu_limit=200m
 
 # Grafana
 openshift_grafana_node_selector={"node-role.kubernetes.io/infra":"true"}
-openshift_grafana_storage_type=pvc
+openshift_grafana_storage_type=dynamic
 openshift_grafana_pvc_size=2Gi
 openshift_grafana_node_exporter=true
 
@@ -183,17 +193,18 @@ openshift_logging_eventrouter_nodeselector={"node-role.kubernetes.io/infra": "tr
 # openshift_router_selector='node-role.kubernetes.io/infra=true'
 # openshift_registry_selector='node-role.kubernetes.io/infra=true'
 
-openshift_hosted_router_replicas=2
+openshift_hosted_router_replicas=1
+
+# openshift_hosted_router_certificate={"certfile": "/path/to/router.crt", "keyfile": "/path/to/router.key", "cafile": "/path/to/router-ca.crt"}
+
 openshift_hosted_registry_replicas=1
 openshift_hosted_registry_pullthrough=true
 openshift_hosted_registry_acceptschema2=true
 openshift_hosted_registry_enforcequota=true
-openshift_hosted_registry_storage_kind=nfs
-openshift_hosted_registry_storage_access_modes=['ReadWriteMany']
-openshift_hosted_registry_storage_nfs_directory=/srv/nfs
-openshift_hosted_registry_storage_nfs_options='*(rw,root_squash)'
-openshift_hosted_registry_storage_volume_name=registry
-openshift_hosted_registry_storage_volume_size=20Gi
+
+openshift_hosted_registry_storage_kind=glusterfs
+openshift_hosted_registry_storage_volume_size=10Gi
+openshift_hosted_registry_selector="node-role.kubernetes.io/infra=true"
 
 ###########################################################################
 ### OpenShift Service Catalog Vars
@@ -204,7 +215,7 @@ openshift_enable_service_catalog=true
 
 # default=true
 template_service_broker_install=true
-openshift_template_service_broker_namespaces=['openshift']
+openshift_template_service_broker_namespaces=['openshift-templates']
 
 # default=true
 ansible_service_broker_install=true
@@ -238,13 +249,13 @@ master3.d6c1.internal
 
 [nodes]
 ## These are the masters
-master1.d6c1.internal openshift_node_group_name='node-config-master' openshift_node_problem_detector_install=true
-master2.d6c1.internal openshift_node_group_name='node-config-master' openshift_node_problem_detector_install=true
-master3.d6c1.internal openshift_node_group_name='node-config-master' openshift_node_problem_detector_install=true
+master1.d6c1.internal openshift_node_group_name='node-config-compute' openshift_node_problem_detector_install=true
+master2.d6c1.internal openshift_node_group_name='node-config-compute' openshift_node_problem_detector_install=true
+master3.d6c1.internal openshift_node_group_name='node-config-compute' openshift_node_problem_detector_install=true
 
 ## These are infranodes
-infranode1.d6c1.internal openshift_node_group_name='node-config-infra' openshift_node_problem_detector_install=true
-infranode2.d6c1.internal openshift_node_group_name='node-config-infra' openshift_node_problem_detector_install=true
+infranode1.d6c1.internal openshift_node_group_name='node-config-compute' openshift_node_problem_detector_install=true
+infranode2.d6c1.internal openshift_node_group_name='node-config-compute' openshift_node_problem_detector_install=true
 
 ## These are regular nodes
 node1.d6c1.internal openshift_node_group_name='node-config-compute' openshift_node_problem_detector_install=true
